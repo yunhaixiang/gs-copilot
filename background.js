@@ -13,7 +13,7 @@ async function getSettings() {
   return { ...DEFAULT_SETTINGS, ...stored };
 }
 
-async function callQwen(payload) {
+async function callAi(payload) {
   const settings = await getSettings();
   const headers = {
     "Content-Type": "application/json"
@@ -44,19 +44,17 @@ async function callQwen(payload) {
 
   if (!response.ok) {
     const text = await response.text();
-    throw new Error(`Qwen request failed: ${response.status} ${text}`);
+    throw new Error(`AI request failed: ${response.status} ${text}`);
   }
 
   return response.json();
 }
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-  if (message && message.type === "qwenSuggest") {
-    callQwen(message.payload)
+  if (message && message.type === "aiSuggest") {
+    callAi(message.payload)
       .then((data) => sendResponse({ ok: true, data }))
-      .catch((error) =>
-        sendResponse({ ok: false, error: error.message.replace("Qwen", "AI") })
-      );
+      .catch((error) => sendResponse({ ok: false, error: error.message }));
     return true;
   }
   if (message && message.type === "openOptions") {
@@ -108,7 +106,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
           ]
         };
 
-        const data = await callQwen(payload);
+        const data = await callAi(payload);
         sendResponse({ ok: true, data });
       } catch (error) {
         sendResponse({ ok: false, error: error.message });

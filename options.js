@@ -4,6 +4,8 @@ const DEFAULT_SETTINGS = {
   model: "qwen2.5:7b-instruct",
   systemPrompt:
     "You are a grading assistant. Given rubric items and a student answer, pick the best matching rubric item indices. Return JSON only.",
+  questionText: "",
+  solutionText: "",
   temperature: 0.2,
   maxTokens: 512
 };
@@ -14,6 +16,8 @@ async function loadSettings() {
   document.getElementById("apiKey").value = settings.apiKey;
   document.getElementById("model").value = settings.model;
   document.getElementById("systemPrompt").value = settings.systemPrompt;
+  document.getElementById("questionText").value = settings.questionText;
+  document.getElementById("solutionText").value = settings.solutionText;
   document.getElementById("temperature").value = settings.temperature;
   document.getElementById("maxTokens").value = settings.maxTokens;
 }
@@ -24,6 +28,8 @@ async function saveSettings() {
     apiKey: document.getElementById("apiKey").value.trim(),
     model: document.getElementById("model").value.trim(),
     systemPrompt: document.getElementById("systemPrompt").value.trim(),
+    questionText: document.getElementById("questionText").value.trim(),
+    solutionText: document.getElementById("solutionText").value.trim(),
     temperature: Number(document.getElementById("temperature").value),
     maxTokens: Number(document.getElementById("maxTokens").value)
   };

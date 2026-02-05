@@ -9,7 +9,9 @@ const STORAGE_KEYS = {
 
 const DEFAULT_SETTINGS = {
   systemPrompt:
-    "You are a grading assistant. Given rubric items and a student answer image, pick the best matching rubric item indices. Return JSON only."
+    "You are a grading assistant. Given rubric items and a student answer image, pick the best matching rubric item indices. Return JSON only.",
+  questionText: "",
+  solutionText: ""
 };
 
 let rubricItems = [];
@@ -817,7 +819,7 @@ function createPanel() {
         return;
       }
       const settings = await chrome.storage.sync.get(DEFAULT_SETTINGS);
-      const { systemPrompt, userPrompt } = buildPromptText(rubricItems, settings.systemPrompt);
+      const { systemPrompt, userPrompt } = buildPromptText(rubricItems, settings);
       const response = await sendMessage({
         type: "aiSuggestWithScreenshot",
         payload: { systemPrompt, userPrompt, screenshots }
@@ -903,7 +905,7 @@ function createPanel() {
   });
 }
 
-function buildPromptText(items, systemPrompt) {
+function buildPromptText(items, settings) {
   const rubricText = items
     .map((item, index) => {
       const groupPrefix = item.groupLabel ? `[${item.groupLabel}] ` : "";
@@ -911,9 +913,14 @@ function buildPromptText(items, systemPrompt) {
     })
     .join("\n");
 
-  const userPrompt = `Rubric items:\n${rubricText}\n\nUse the provided screenshot of the student's handwritten answer.\n\nReturn JSON only with this shape:\n{\n  "items": [\n    { "index": 1, "reason": "short reason" }\n  ]\n}\nUse 1-based indices.`;
+  const questionText = settings.questionText || "";
+  const solutionText = settings.solutionText || "";
+  const questionBlock = questionText ? `Question:\n${questionText}\n\n` : "";
+  const solutionBlock = solutionText ? `Solution:\n${solutionText}\n\n` : "";
 
-  return { systemPrompt: systemPrompt || DEFAULT_SETTINGS.systemPrompt, userPrompt };
+  const userPrompt = `${questionBlock}${solutionBlock}Rubric items:\n${rubricText}\n\nUse the provided screenshot of the student's handwritten answer.\n\nReturn JSON only with this shape:\n{\n  "items": [\n    { "index": 1, "reason": "short reason" }\n  ]\n}\nUse 1-based indices.`;
+
+  return { systemPrompt: settings.systemPrompt || DEFAULT_SETTINGS.systemPrompt, userPrompt };
 }
 
 function getResponseContent(data) {
