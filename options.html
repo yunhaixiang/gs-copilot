@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>gs-copilot Options</title>
+    <link rel="stylesheet" href="options.css" />
+  </head>
+  <body>
+    <div class="wrapper">
+      <h1>gs-copilot</h1>
+      <p>Configure how gs-copilot talks to your AI model.</p>
+
+      <label>
+        Endpoint URL
+        <input id="endpoint" type="url" placeholder="http://localhost:11434/v1/chat/completions" />
+      </label>
+
+      <label>
+        API Key (optional)
+        <input id="apiKey" type="password" placeholder="sk-..." />
+      </label>
+
+      <label>
+        Model
+        <input id="model" type="text" placeholder="qwen2.5:7b-instruct" />
+      </label>
+
+      <label>
+        System Prompt
+        <textarea id="systemPrompt" rows="6"></textarea>
+      </label>
+
+      <label>
+        Temperature
+        <input id="temperature" type="number" min="0" max="1" step="0.1" />
+      </label>
+
+      <label>
+        Max Tokens
+        <input id="maxTokens" type="number" min="32" max="2048" step="32" />
+      </label>
+
+      <div class="actions">
+        <button id="save">Save</button>
+        <span id="status"></span>
+      </div>
+    </div>
+
+    <script src="options.js"></script>
+  </body>
+</html>

@@ -1,0 +1,50 @@
+body {
+  margin: 0;
+  font-family: "Space Grotesk", "Avenir", "Helvetica Neue", sans-serif;
+  background: #f4f2ee;
+  color: #1b1b1b;
+}
+
+.wrapper {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+h1 {
+  margin-bottom: 8px;
+}
+
+label {
+  display: block;
+  margin: 16px 0;
+  font-weight: 600;
+}
+
+input,
+textarea {
+  width: 100%;
+  margin-top: 6px;
+  padding: 8px 10px;
+  border: 1px solid #1b1b1b;
+  background: #fffdf8;
+}
+
+.actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-top: 16px;
+}
+
+#save {
+  background: #1b1b1b;
+  color: #f9f5ef;
+  border: 1px solid #1b1b1b;
+  padding: 8px 14px;
+  cursor: pointer;
+}
+
+#status {
+  font-size: 12px;
+}

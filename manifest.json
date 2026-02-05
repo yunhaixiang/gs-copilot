@@ -1,0 +1,45 @@
+{
+  "manifest_version": 3,
+  "name": "gs-copilot",
+  "version": "0.1.0",
+  "description": "Suggest rubric selections on Gradescope using AI.",
+  "permissions": ["storage", "activeTab", "scripting", "tabs"],
+  "host_permissions": [
+    "<all_urls>",
+    "https://www.gradescope.com/*",
+    "https://*.gradescope.com/*",
+    "https://gradescope.ca/*",
+    "https://*.gradescope.ca/*",
+    "http://localhost/*",
+    "http://127.0.0.1/*",
+    "http://*/*",
+    "https://*/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.gradescope.com/*/grade*",
+        "https://www.gradescope.com/*/submissions/*",
+        "https://*.gradescope.com/*/grade*",
+        "https://*.gradescope.com/*/submissions/*",
+        "https://gradescope.ca/*/grade*",
+        "https://gradescope.ca/*/submissions/*",
+        "https://*.gradescope.ca/*/grade*",
+        "https://*.gradescope.ca/*/submissions/*",
+        "https://gradescope.ca/*"
+      ],
+      "all_frames": true,
+      "js": ["content.js"],
+      "css": ["content.css"],
+      "run_at": "document_idle"
+    }
+  ],
+  "options_page": "options.html",
+  "action": {
+    "default_title": "gs-copilot",
+    "default_popup": "popup.html"
+  }
+}

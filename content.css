@@ -1,0 +1,310 @@
+#gs-copilot-panel {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  width: 280px;
+  max-height: 85vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  resize: both;
+  min-width: 220px;
+  min-height: 180px;
+  background: #f9f5ef;
+  color: #1b1b1b;
+  border: 2px solid #1b1b1b;
+  box-shadow: 6px 6px 0 #1b1b1b;
+  font-family: "Space Grotesk", "Avenir", "Helvetica Neue", sans-serif;
+  z-index: 999999;
+  background-clip: padding-box;
+}
+
+#gs-copilot-panel::-webkit-resizer {
+  background: transparent;
+}
+
+.gs-copilot-resize-edge {
+  position: absolute;
+  background: transparent;
+  z-index: 1000000;
+}
+
+.gs-copilot-resize-edge.edge-right {
+  top: 0;
+  right: -4px;
+  width: 8px;
+  height: 100%;
+  cursor: ew-resize;
+}
+
+.gs-copilot-resize-edge.edge-bottom {
+  left: 0;
+  bottom: -4px;
+  width: 100%;
+  height: 8px;
+  cursor: ns-resize;
+}
+
+.gs-copilot-resize-edge.edge-corner {
+  right: -6px;
+  bottom: -6px;
+  width: 12px;
+  height: 12px;
+  cursor: nwse-resize;
+}
+
+#gs-copilot-panel * {
+  box-sizing: border-box;
+}
+
+.gs-copilot-header {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 10px 12px;
+  border-bottom: 2px solid #1b1b1b;
+  background: #f1d97a;
+  cursor: grab;
+  gap: 8px;
+}
+
+.gs-copilot-title {
+  font-size: 16px;
+  font-weight: 700;
+  margin-right: auto;
+}
+
+#gs-copilot-options {
+  margin-right: 6px;
+}
+
+.gs-copilot-build {
+  font-size: 11px;
+  font-weight: 600;
+  margin-left: 6px;
+}
+
+.gs-copilot-link {
+  background: transparent;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 0;
+}
+
+.gs-copilot-icon {
+  background: transparent;
+  border: 1px solid #1b1b1b;
+  width: 26px;
+  height: 22px;
+  font-weight: 700;
+  cursor: pointer;
+  line-height: 1;
+  text-align: center;
+}
+
+.gs-copilot-collapsed .gs-copilot-section {
+  display: none;
+}
+
+.gs-copilot-collapsed {
+  width: 220px;
+  height: auto !important;
+  max-height: none !important;
+  min-height: 0 !important;
+  resize: none;
+  overflow: hidden;
+  background: #f1d97a;
+}
+
+.gs-copilot-collapsed .gs-copilot-section {
+  display: none;
+}
+
+.gs-copilot-collapsed .gs-copilot-resize-edge {
+  display: none;
+}
+
+
+.gs-copilot-collapsed #gs-copilot-panel::-webkit-resizer {
+  display: none;
+}
+
+.gs-copilot-collapsed .gs-copilot-header {
+  border-bottom: none;
+}
+
+.gs-copilot-dragging {
+  cursor: grabbing;
+}
+
+.gs-copilot-section {
+  padding: 12px;
+  border-bottom: 1px solid #1b1b1b;
+}
+
+.gs-copilot-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+}
+
+.gs-copilot-section-title {
+  font-size: 18px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin: 2px 0 6px;
+}
+
+.gs-copilot-section-title--ai {
+  margin-bottom: 14px;
+}
+
+.gs-copilot-section-title--rubrics {
+  margin-bottom: 6px;
+}
+
+.gs-copilot-divider {
+  height: 1px;
+  background: #1b1b1b;
+  opacity: 0.2;
+  margin: 10px 0;
+}
+
+.gs-copilot-label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+#gs-copilot-answer {
+  width: 100%;
+  min-height: 120px;
+  resize: vertical;
+  border: 1px solid #1b1b1b;
+  padding: 8px;
+  background: #fffdf8;
+}
+
+.gs-copilot-action,
+#gs-copilot-refresh-rubric,
+#gs-copilot-apply-all,
+.gs-copilot-apply {
+  background: #1b1b1b;
+  color: #f9f5ef;
+  border: 1px solid #1b1b1b;
+  padding: 6px 10px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
+}
+
+.gs-copilot-action:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.gs-copilot-action:hover:not(:disabled) {
+  background: #3a3a3a;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 0 #1b1b1b;
+}
+
+.gs-copilot-action:active:not(:disabled) {
+  transform: translateY(1px);
+  box-shadow: inset 0 2px 0 #1b1b1b;
+}
+
+#gs-copilot-status {
+  font-size: 12px;
+  margin-top: 6px;
+}
+
+.gs-copilot-suggestion {
+  font-size: 15px;
+  font-weight: 700;
+  color: #1b1b1b;
+}
+
+.gs-copilot-note {
+  font-size: 12px;
+  color: #444;
+  margin-bottom: 6px;
+}
+
+.gs-copilot-suggestion-error {
+  color: #b30000;
+}
+
+.gs-copilot-suggestion-retry {
+  margin-left: 4px;
+  margin-right: 4px;
+}
+
+.gs-copilot-help {
+  font-size: 11px;
+  color: #555;
+  margin-top: 4px;
+  margin-bottom: 8px;
+}
+
+.gs-copilot-error {
+  color: #b30000;
+}
+
+.gs-copilot-subtitle {
+  font-weight: 600;
+}
+
+.gs-copilot-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.gs-copilot-item {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+  border: 1px solid #1b1b1b;
+  padding: 8px;
+  background: #fffdf8;
+  user-select: none;
+}
+
+.gs-copilot-item--compact {
+  padding: 6px;
+}
+
+.gs-copilot-item--suggested {
+  border-color: #0b4f9e;
+  background: #e6f0ff;
+}
+
+.gs-copilot-group-title {
+  font-size: 12px;
+  font-weight: 700;
+  margin-top: 8px;
+  margin-bottom: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.gs-copilot-item-title {
+  font-weight: 600;
+  margin-bottom: 4px;
+  font-size: 12px;
+}
+
+.gs-copilot-item-reason {
+  font-size: 11px;
+  color: #444;
+}

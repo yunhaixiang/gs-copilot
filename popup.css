@@ -1,0 +1,24 @@
+body {
+  margin: 0;
+  font-family: "Space Grotesk", "Avenir", "Helvetica Neue", sans-serif;
+  background: #f4f2ee;
+  color: #1b1b1b;
+}
+
+.popup {
+  width: 240px;
+  padding: 16px;
+}
+
+.title {
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+button {
+  background: #1b1b1b;
+  color: #f9f5ef;
+  border: 1px solid #1b1b1b;
+  padding: 6px 10px;
+  cursor: pointer;
+}
